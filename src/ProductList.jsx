@@ -271,7 +271,7 @@ function ProductList() {
                     <i style={{color:'white'}}>Where Green Meets Serenity</i>
                     </div>
                     </a>
-                </div>
+                </div > 
               
             </div>
             <div style={styleObjUl}>
