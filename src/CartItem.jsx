@@ -4,32 +4,45 @@ import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
+
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    const totalAmount = cart.reduce((total,item)=>{return total += parseInt(item.cost.replace(/\D/g, ''), 10)*item.quantity},0)
+    return totalAmount
   };
 
   const handleContinueShopping = (e) => {
-   
+   onContinueShopping(e)
   };
 
+  const handleCheckoutShopping = (e) => {
+    e.preventDefault()
+    alert('Functionality to be added for future reference');
+  };
 
 
   const handleIncrement = (item) => {
+    const tempItem = {...item,quantity: item.quantity + 1}
+    dispatch(updateQuantity(tempItem))
   };
 
   const handleDecrement = (item) => {
-   
+    const tempItem = {...item,quantity: item.quantity - 1}
+    dispatch(updateQuantity(tempItem))
   };
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item))
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    const cost = parseInt(item.cost.replace(/\D/g, ''), 10);
+    return item.quantity*cost 
+
   };
 
   return (
